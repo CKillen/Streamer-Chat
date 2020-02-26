@@ -12,25 +12,20 @@ app.use(cors());
 
 //TODO: Refactor Websocket stuff to own file/folder
 
-const client = new WebSocket('wss://irc-ws.chat.twitch.tv:443', {
-    perMessageDeflate: true
-});
-
-client.on('open', function open() {
-    console.log("open");
-    client.send("pass oauth:miuvyfz3bolyddzwdmxywjmqsw2na1");
-    client.send("nick hicures");
-    client.send("join #hicures");
-    //client.send("join #loltyler1");
-    client.send("CAP REQ :twitch.tv/tags twitch.tv/commands");
-    client.send("CAP REQ :twitch.tv/membership");
-    console.log("Client Connected");
-});
-
+const client = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
 const webSocketServer = new WebSocket.Server({
     port: 8080
 }, function(ws) {
     console.log("WebSocket up");
+    client.on('open', function open() {
+        client.send("pass oauth:miuvyfz3bolyddzwdmxywjmqsw2na1");
+        client.send("nick hicures");
+        client.send("join #hicures");
+        //client.send("join #loltyler1");
+        client.send("CAP REQ :twitch.tv/tags twitch.tv/commands");
+        client.send("CAP REQ :twitch.tv/membership");
+        console.log("Client Connected");
+    });
 });
 
 webSocketServer.on("connection", function connection(ws, req) {
@@ -41,7 +36,7 @@ webSocketServer.on("connection", function connection(ws, req) {
         //data. ie Function to test getNameFromIrc()
         //TODO: Some things should be removed from chat.
         client.on('message', function incoming(data) {
-            let sendData = twitchIrcParser(data);
+            twitchIrcParser(data);
             ws.send(JSON.stringify(sendData));
 
     });
