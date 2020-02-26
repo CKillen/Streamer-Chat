@@ -1,0 +1,10 @@
+.App {
+    padding-top: 30px;
+    width: 100vw;
+    height: 100vh;
+    background-color: #3D4849;
+}
+
+html body {
+    overflow: hidden;
+}
