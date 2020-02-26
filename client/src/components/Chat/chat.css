@@ -1,0 +1,29 @@
+.chat-box {
+    margin-top: 25px;
+    margin-left: 20px;
+    width: 30%;
+    height: 85%;
+    background-color: grey;
+    position: relative;
+}
+
+.chat-line {
+    font-family: 'PT Sans', sans-serif;
+    padding: 8px;
+}
+
+.scrollable-button {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.chat-line-section {
+    overflow: scroll;
+    height: 100%;
+}
+
+.mod-badge {
+    height: 14px;
+    width: 14px;
+}
