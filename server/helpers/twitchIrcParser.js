@@ -4,42 +4,14 @@ const twitchIrcParser = (ircData) => {
     if(!ircData.includes("PRIVMSG")) {
        return;
     }
-    let tags = parseMessageTags(ircData);
-    let color = messageColor(tags);
-    let name = tags.substring(
-            tags.indexOf("=", tags.indexOf("display-name=")) + 1,
-            tags.indexOf(";", tags.indexOf("display-name="))).trim();
-    let msg = ircData.substring(
-            ircData.indexOf(":", ircData.indexOf("PRIVMSG #")) + 1).trim();
-    let channel = ircData.substring(
-            ircData.indexOf("#", ircData.indexOf("PRIVMSG #")) + 1,
-            ircData.indexOf(":", ircData.indexOf("PRIVMSG #") + 1)).trim();
-    let mod = isMod(tags);
-    let emoteStart = ircData
-        .indexOf("=", ircData.indexOf("emotes=")) + 1;
-    let emoteEnd = ircData.indexOf("flags") - 1;
-    let emoteString = ircData.substring(emoteStart, emoteEnd);
-    let emoteArray = emoteString.split("/");
-    let emoteData = [];
-    let emoteId = 0;
-    if(emoteEnd > -1 &&  ircData[emoteEnd - 1] != "=") {
-        for(let i = 0; i < emoteArray.length; i++) {
-            let emoteParts = emoteArray[i].split(":");
-            let allEmotePositions = emoteParts[1].split(",");
+    let tags = parseTags(ircData);
+    let msg = parseMessage(ircData)
+    let channel = parseChannel(ircData)
+    let name = parseName(tags);
+    let color = parseColor(tags, name);
+    let mod = parseModStatus(tags);
+    let emoteData = createEmoteArray(tags);
 
-            for(let j = 0; j < allEmotePositions.length; j++) {
-                let emote = {};
-                emote.id = emoteId;
-                emoteId++;
-                emote.emoteId = emoteParts[0];
-                emotePosition = allEmotePositions[j].split("-");
-                emote.startPos = emotePosition[0];
-                emote.endPos = emotePosition[1];
-                emote.url = `https://static-cdn.jtvnw.net/emoticons/v1/${emote.emoteId}/1.0`;
-                emoteData.push(emote);
-            }
-        }
-    }
     let sendData = {
         name,
         msg,
@@ -53,7 +25,61 @@ const twitchIrcParser = (ircData) => {
 
 }
 
-function isMod(tags) {
+function createEmoteArray(tags) {
+    let emoteStart = tags
+        .indexOf("=", tags.indexOf("emotes=")) + 1;
+    let emoteEnd = tags.indexOf("flags") - 1;
+    let emoteString = tags.substring(emoteStart, emoteEnd);
+    let emoteArray = emoteString.split("/");
+    let emoteData = [];
+    if(emoteEnd <= -1 || tags[emoteEnd - 1] === "=") {
+        return emoteData;
+    }
+
+    for(let i = 0; i < emoteArray.length; i++) {
+        let emoteParts = emoteArray[i].split(":");
+        let childEmotes = emoteParts[1].split(",");
+
+        for(let j = 0; j < childEmotes.length; j++) {
+            emoteData.push(
+                createEmoteObject(emoteParts[0], childEmotes[j])
+            );
+        }
+    }
+
+    return emoteData;
+}
+
+function createEmoteObject(parentEmoteId, childEmote) {
+    let emote = {};
+    emotePosition = childEmote.split("-");
+    emote.startPos = emotePosition[0];
+    emote.endPos = emotePosition[1];
+    emote.url = `https://static-cdn.jtvnw.net/emoticons/` +
+        `v1/${parentEmoteId}/1.0`;
+    return emote;
+}
+
+function parseMessage(ircData) {
+    return ircData.substring(
+            ircData.indexOf(":", ircData.indexOf("PRIVMSG #")) + 1).trim();
+
+}
+
+function parseChannel(ircData) {
+    return ircData.substring(
+            ircData.indexOf("#", ircData.indexOf("PRIVMSG #")) + 1,
+            ircData.indexOf(":", ircData.indexOf("PRIVMSG #") + 1)).trim();
+
+}
+
+function parseName(tags) {
+    return tags.substring(
+        tags.indexOf("=", tags.indexOf("display-name=")) + 1,
+        tags.indexOf(";", tags.indexOf("display-name="))).trim();
+}
+
+function parseModStatus(tags) {
     let mod = false;
     if(tags[tags.indexOf("=", tags.indexOf("mod=")) + 1] == "1") {
         mod = true;
@@ -62,14 +88,14 @@ function isMod(tags) {
     return mod;
 }
 
-function parseMessageTags(ircData) {
+function parseTags(ircData) {
     //@tag-name..... next part starts with :
     return ircData.substring(
         ircData.indexOf("@"),
         ircData.indexOf(";user-type="));
 }
 
-function messageColor(tags) {
+function parseColor(tags, name) {
     if(tags[tags.indexOf("=", tags.indexOf("color=")) + 1] != ";") {
         color = tags.substring(
             tags.indexOf("#", tags.indexOf("color=")),

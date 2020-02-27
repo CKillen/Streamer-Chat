@@ -20,7 +20,7 @@ client.on('open', function open() {
     client.send(`pass ${config.oauth}`);
     client.send(`nick ${config.nick}`);
     client.send("join #hicures");
-    client.send("join #loltyler1");
+    //client.send("join #loltyler1");
     client.send("CAP REQ :twitch.tv/tags twitch.tv/commands");
     client.send("CAP REQ :twitch.tv/membership");
     console.log("Client Connected");
