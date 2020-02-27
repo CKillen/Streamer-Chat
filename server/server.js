@@ -5,23 +5,22 @@ const port = 4050;
 const ApiRename = require("./routes/api-rename");
 const WebSocket = require("ws");
 const cors = require("cors");
-const helper = require("./helpers/helper.js");
 const server = http.createServer(app);
 const twitchIrcParser = require("./helpers/twitchIrcParser.js");
+const config = require("./config/config.js");
 app.use(cors());
 
 //TODO: Refactor Websocket stuff to own file/folder
 
 const client = new WebSocket('wss://irc-ws.chat.twitch.tv:443', {
-    perMessageDeflate: true
+    perMessageDeflate: false
 });
 
 client.on('open', function open() {
-    console.log("open");
-    client.send("pass oauth:miuvyfz3bolyddzwdmxywjmqsw2na1");
-    client.send("nick hicures");
+    client.send(`pass ${config.oauth}`);
+    client.send(`nick ${config.nick}`);
     client.send("join #hicures");
-    //client.send("join #loltyler1");
+    client.send("join #loltyler1");
     client.send("CAP REQ :twitch.tv/tags twitch.tv/commands");
     client.send("CAP REQ :twitch.tv/membership");
     console.log("Client Connected");
@@ -35,18 +34,18 @@ const webSocketServer = new WebSocket.Server({
 
 webSocketServer.on("connection", function connection(ws, req) {
     console.log("A user has connected");
-        //TODO: Function out all the ugly string parsing code, possibly into a
-        //file that just spits back the correct JSON. This would also be a good
-        //place to implement testing for all the different things grabbed from
-        //data. ie Function to test getNameFromIrc()
-        //TODO: Some things should be removed from chat.
-        client.on('message', function incoming(data) {
+    client.on('message', function incoming(data) {
+
+        if(data.includes("PING :tmi.twitch.tv")) {
+            client.send("PONG :tmi.twitch.tv");
+        } else {
+            console.log(data);
             let sendData = twitchIrcParser(data);
             ws.send(JSON.stringify(sendData));
+        }
+    })
+});
 
-    });
-
-})
 
 app.use('/api/user', ApiRename);
 
