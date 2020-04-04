@@ -8,3 +8,16 @@
 html body {
     overflow: hidden;
 }
+
+.viewer-card-panel {
+    display: grid;
+    margin-top: 25px;
+    grid-template-columns: repeat(4, 300px);
+    grid-template-rows: repeat(6, 150px);
+}
+
+.main-page {
+    display: grid;
+    grid-template-columns: 35% 65%;
+    grid-template-rows: 100vh;
+}

@@ -1,0 +1,22 @@
+.viewer-card {
+    height: 95%;
+    width: 95%;
+    border: 1px black solid;
+    border-radius: 2px;
+    background-color: grey;
+    display: grid;
+    grid-template-rows: 25% 75%;
+}
+
+.card-top {
+    display: grid;
+    grid-template-columns: 15% 50% 35%;
+    border-bottom: 1px black solid;
+}
+
+.card-top-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

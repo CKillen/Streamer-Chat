@@ -1,10 +1,12 @@
 .chat-box {
     margin-top: 25px;
     margin-left: 20px;
-    width: 30%;
+    width: 85%;
     height: 85%;
     background-color: grey;
     position: relative;
+    border: 1px solid #66605f;
+    border-radius: 4px;
 }
 
 .chat-line {
@@ -13,17 +15,51 @@
 }
 
 .scrollable-button {
+    background-color: #928181;
     position: absolute;
-    right: 5px;
+    right: 20px;
     top: 5px;
+    border: none;
+    border-radius: 4px;
+    height: 25px;
+}
+
+.scrollable-button-clicked {
+    background-color: #524A4A;
+}
+
+.scrollable-button-clicked:focus, .scrollable-button:focus {
+    outline:none;
 }
 
 .chat-line-section {
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     height: 100%;
 }
 
 .mod-badge {
     height: 14px;
     width: 14px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: grey;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
