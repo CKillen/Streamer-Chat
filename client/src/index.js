@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Chat from './components/Chat'
 import "./main.css";
+<<<<<<< HEAD
 import ViewerCard from "./components/ViewerCard"
 
 class App extends Component {
@@ -25,6 +26,15 @@ class App extends Component {
                     </div>
                 </div>
             </div>
+=======
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Chat />
+      </div>
+>>>>>>> 2af8af657a41031cd27b9e5212e85b1953db85ea
     )
   }
 }

@@ -8,6 +8,7 @@
 html body {
     overflow: hidden;
 }
+<<<<<<< HEAD
 
 .viewer-card-panel {
     display: grid;
@@ -21,3 +22,5 @@ html body {
     grid-template-columns: 35% 65%;
     grid-template-rows: 100vh;
 }
+=======
+>>>>>>> 2af8af657a41031cd27b9e5212e85b1953db85ea

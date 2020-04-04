@@ -6,6 +6,7 @@ const ws = new WebSocket('ws://localhost:8080');
 class Chat extends Component {
     constructor(props) {
         super(props);
+<<<<<<< HEAD
         //TODO Need to make it possible to add these to the program, possibly
         //store in local storage or on eventual CRM backend
         this.state = {
@@ -19,6 +20,11 @@ class Chat extends Component {
                 "test",
                 "wooooo",
             ],
+=======
+        this.state = {
+            messages: [],
+            scrollable: true,
+>>>>>>> 2af8af657a41031cd27b9e5212e85b1953db85ea
         };
 
     }
@@ -60,6 +66,7 @@ class Chat extends Component {
 
     messageCreator = (messageObject) => {
         let name = messageObject.name;
+<<<<<<< HEAD
         if(this.state.noShow.indexOf(name) > -1) {
             return;
         }
@@ -68,6 +75,9 @@ class Chat extends Component {
         if(showMessage) {
             return;
         }
+=======
+        let message = messageObject.msg;
+>>>>>>> 2af8af657a41031cd27b9e5212e85b1953db85ea
         let emoteObjectArray = messageObject.emoteData;
         let color = messageObject.color;
         let mod = messageObject.mod;
@@ -126,6 +136,7 @@ class Chat extends Component {
     }
 
     render() {
+<<<<<<< HEAD
         let scrollClass;
         if(this.state.scrollable) {
             scrollClass = "";
@@ -138,6 +149,13 @@ class Chat extends Component {
                 <button className={"scrollable-button " + scrollClass}
                     onClick={this.scrollChange}>
                         Scroll
+=======
+        return (
+            <div className="chat-box">
+                <button className="scrollable-button"
+                    onClick={this.scrollChange}>
+                        Scrol
+>>>>>>> 2af8af657a41031cd27b9e5212e85b1953db85ea
                 </button>
                 <div className="chat-line-section">
                     {this.state.messages}
