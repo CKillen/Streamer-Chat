@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "cookie-session": "^1.4.0",
@@ -19,15 +18,11 @@
     "mongodb": "^3.5.5",
     "passport": "^0.4.1",
     "passport-twitch": "^1.0.3",
-=======
-    "express": "^4.17.1",
->>>>>>> 2af8af657a41031cd27b9e5212e85b1953db85ea
     "ws": "^7.2.1"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.1",
     "utf-8-validate": "^5.0.2"
-<<<<<<< HEAD
   },
   "devDependencies": {
     "eslint": "^6.8.0",
@@ -36,7 +31,5 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^1.7.0"
-=======
->>>>>>> 2af8af657a41031cd27b9e5212e85b1953db85ea
   }
 }

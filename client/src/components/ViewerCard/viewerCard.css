@@ -20,3 +20,46 @@
     justify-content: center;
 }
 
+.card-top-flag {
+    height: 100%;
+    width: 100%;
+}
+
+.card-content-wrapper {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.card-content {
+    border-bottom: solid 1px black;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.card-content-text {
+    text-align: center;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.card-content:last-child {
+    border: none;
+}
+
+.card-content-top, .card-content-bottom {
+    background-color: #999999;
+}
+
+.card-content-middle {
+    background-color: #828282;
+}
+
+.card-name h4 {
+    font-size: 24px;
+}
+
+.card-followdays p {
+    font-size: 12px;
+}

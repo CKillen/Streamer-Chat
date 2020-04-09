@@ -6,12 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cd server && nodemon server.js",
-<<<<<<< HEAD
     "dev": "concurrently \"npm run start\" \"cd client && npm start\"",
     "postinstall": "(cd client && npm install); (cd server && npm install);"
-=======
-    "dev": "concurrently \"npm run start\" \"cd client && npm start\""
->>>>>>> 2af8af657a41031cd27b9e5212e85b1953db85ea
   },
   "repository": {
     "type": "git",
@@ -30,15 +26,12 @@
   "homepage": "https://github.com/CKillen/Streamer-Chat#readme",
   "devDependencies": {
     "concurrently": "^5.1.0",
-<<<<<<< HEAD
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^1.7.0",
-=======
->>>>>>> 2af8af657a41031cd27b9e5212e85b1953db85ea
     "nodemon": "^2.0.2"
   },
   "dependencies": {
