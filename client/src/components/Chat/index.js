@@ -25,6 +25,7 @@ class Chat extends Component {
     //TODO: Make Scroll button look nicer
     //TODO: Add Send Message
 
+
     scrollToBottom = () => {
         if(this.state.scrollable === true) {
             this.messageEnd.scrollIntoView( { behavior: "smooth" });
@@ -41,10 +42,10 @@ class Chat extends Component {
         ws.onopen = () => {
             ws.send("connected");
         }
-
         ws.onmessage = (message) => {
             message = JSON.parse(message.data);
             let parsedMessage = this.messageCreator(message);
+            this.props.viewerHandler(message.name);
             this.setState({
                 messages: this.state.messages.concat(
                     parsedMessage
